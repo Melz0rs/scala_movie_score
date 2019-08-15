@@ -1,6 +1,7 @@
-package com.example
+package api
 
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
+import api.actors.Movie
 import spray.json.DefaultJsonProtocol
 
 trait JsonSupport extends SprayJsonSupport {
