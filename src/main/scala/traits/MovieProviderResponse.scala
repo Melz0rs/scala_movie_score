@@ -1,0 +1,5 @@
+package traits
+
+class MovieProviderResponse {
+
+}

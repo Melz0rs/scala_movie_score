@@ -2,21 +2,17 @@ package clients
 
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.headers.RawHeader
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpMethod, HttpMethods, HttpRequest, HttpResponse}
+import akka.http.scaladsl.model.{ ContentTypes, HttpEntity, HttpMethod, HttpMethods, HttpRequest, HttpResponse }
 import akka.http.scaladsl.unmarshalling.Unmarshal
-import exceptions.{HttpMethodNotSupportedException, HttpResponseException}
+import exceptions.HttpResponseException
 import traits.AkkaImplicits
-
 import scala.concurrent.Future
 
-trait BaseHttpClient extends AkkaImplicits {
+class BaseHttpClient(onError: Exception => Unit) extends AkkaImplicits {
 
-  val onError: Exception => Unit
-  val headers: Map[String, String]
-
-  protected def get[A](url: String): Future[A] = {
+  def get[A](url: String, headers: Map[String, String]): Future[A] = {
     try {
-      execute(url, headers, HttpMethods.GET)
+      execute[A](url, headers, HttpMethods.GET)
     } catch {
       case e: Exception =>
         onError(e)
@@ -27,22 +23,7 @@ trait BaseHttpClient extends AkkaImplicits {
   private def execute[A](url: String, headers: Map[String, String], method: HttpMethod): Future[A] = {
     val httpRequest = prepareRequest(url, Map("a" -> "b"), method)
 
-    
-  }
-
-  private def get[A <: AnyRef](url: String, headers: Map[String, String]): Future[A] = {
-
-    val futureRequest = Http().singleRequest(httpRequest)
-
-    futureRequest.flatMap(handleStringResponse)
-  }
-
-  private def get[String](url: String, headers: Map[String, String]): Future[String] = {
-    val httpRequest = prepareRequest(url, Map("a" -> "b"))
-
-    val futureRequest = Http().singleRequest(httpRequest)
-
-    futureRequest.flatMap(handleStringResponse)
+    Http().singleRequest(httpRequest).flatMap(handleResponse[A])
   }
 
   private def prepareRequest(url: String, headers: Map[String, String], httpMethod: HttpMethod): HttpRequest = {
@@ -61,11 +42,9 @@ trait BaseHttpClient extends AkkaImplicits {
     httpRequest
   }
 
-  private def handleStringResponse(response: HttpResponse): Future[String] = {
-    //    implicit unmarshaller: Unmarshaller[ResponseEntity, String]
-
+  private def handleResponse[A](response: HttpResponse): Future[A] = {
     if (response.status.isSuccess()) {
-      Unmarshal(response).to[String]
+      Unmarshal(response).to[A]
     } else {
       throw HttpResponseException(response) // TODO: Maybe Future.failed?
     }

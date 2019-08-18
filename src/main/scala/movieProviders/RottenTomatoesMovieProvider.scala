@@ -1,0 +1,5 @@
+package MovieProviders
+
+class RottenTomatoesMovieProvider {
+
+}

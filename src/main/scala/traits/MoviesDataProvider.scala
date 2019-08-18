@@ -1,22 +1,22 @@
 package traits
 
-import classes.{MoviesDataProviderParseOptions, Score}
-import clients.BaseHttpClient
-import utils.{ParseOp, Utils}
+import classes.{ MoviesDataProviderParseOptions, Score }
+import clients.HttpClient
+import utils.{ ParseOp, Utils }
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
-
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-trait MoviesDataProviderTrait extends BaseHttpClient {
+trait MoviesDataProviderTrait {
 
   val parseOptions: MoviesDataProviderParseOptions
   val url: String
   val headers: Map[String, String]
   val onError: Exception => Unit = (e: Exception) => println(s"[MovieDataProvider] an error occured: $e")
 
-  def getScore(movieName: String): Future[Option[Score]] = {
-    get(url.format(movieName)).map(parseScore)
+  def getScore(movieName: String)(implicit httpClient: HttpClient): Future[Option[Score]] = {
+    httpClient.get(url.format(movieName), headers).map(parseScore)
   }
 
   private def parseScore(movieJsonString: String): Option[Score] = {
