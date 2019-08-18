@@ -11,7 +11,7 @@ import akka.http.scaladsl.server.directives.MethodDirectives.get
 import akka.http.scaladsl.server.directives.RouteDirectives.complete
 import akka.http.scaladsl.server.directives.PathDirectives.path
 
-import scala.concurrent.{Await, Future}
+import scala.concurrent.{ Await, Future }
 import akka.pattern.ask
 import api.BaseRoutes
 import api.actors.MoviesRegistryActor
@@ -30,7 +30,7 @@ object MoviesRoutes extends BaseRoutes {
           val movieScore = Await.result(movieScoreFuture, 5.seconds)
 
           // TODO: Return movieScore
-          complete("temp"/*movieScore*/)
+          complete("temp" /*movieScore*/ )
         }
       }
     }

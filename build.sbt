@@ -15,6 +15,8 @@ lazy val root = (project in file(".")).
       "com.typesafe.akka" %% "akka-stream"          % akkaVersion,
       "com.github.pureconfig" %% "pureconfig" % "0.11.1",
       "net.liftweb" %% "lift-json" % "3.1.0",
+      "org.json4s" %% "json4s-native" % "3.6.7",
+      "org.json4s" %% "json4s-jackson" % "3.6.7",
 
       "com.typesafe.akka" %% "akka-http-testkit"    % akkaHttpVersion % Test,
       "com.typesafe.akka" %% "akka-testkit"         % akkaVersion     % Test,

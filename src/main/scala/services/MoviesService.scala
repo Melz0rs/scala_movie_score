@@ -1,9 +1,8 @@
 package services
 
-import classes.{MoviesDataProvider, MoviesDataProviderParseOptions}
-import clients.MoviesDataProviderClient
+import classes.{ MoviesDataProvider, MoviesDataProviderParseOptions }
 import scala.collection.mutable.ListBuffer
-import scala.concurrent.{Await, Future}
+import scala.concurrent.{ Await, Future }
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 
@@ -23,11 +22,12 @@ object MoviesService {
 
   def getScore(movieName: String): Double = {
 
-    val scoresFutures: Seq[Future[Double]] =
+    val scoresFutures: Seq[Future[Option[Double]]] =
       moviesDataProvidersClients.map(dataProvider => Future(dataProvider.getScore(movieName)))
 
     val FutureScores = Future.sequence(scoresFutures)
-    val scores = Await.result(FutureScores, 5.seconds)
+    val scoresOptions = Await.result(FutureScores, 5.seconds) // TODO Change to onComplete / map / for comprehension
+    val scores = scoresOptions.flatten
     val avg = scores.sum / scores.length
 
     avg

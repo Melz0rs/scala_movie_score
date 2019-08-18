@@ -4,8 +4,8 @@ import api.routes.Routes
 import traits.AkkaImplicits
 
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
-import scala.util.{Failure, Success}
+import scala.concurrent.{ Await, Future }
+import scala.util.{ Failure, Success }
 
 object Main extends App with AkkaImplicits {
 

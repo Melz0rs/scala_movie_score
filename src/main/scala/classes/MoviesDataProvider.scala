@@ -1,3 +1,7 @@
 package classes
 
-class MoviesDataProvider(name: String, var url: String, var parseOptions: MoviesDataProviderParseOptions) { }
+import traits.MoviesDataProviderTrait
+
+case class MoviesDataProvider(name: String, url: String,
+                              parseOptions: MoviesDataProviderParseOptions,
+                              headers: Map[String, String]) extends MoviesDataProviderTrait { }

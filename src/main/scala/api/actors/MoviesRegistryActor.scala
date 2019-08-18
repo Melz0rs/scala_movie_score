@@ -1,6 +1,6 @@
 package api.actors
 
-import akka.actor.{Actor, ActorLogging, Props}
+import akka.actor.{ Actor, ActorLogging, Props }
 import services.MoviesService
 
 final case class Movie(name: String, score: Double)
@@ -16,6 +16,6 @@ object MoviesRegistryActor {
 class MoviesRegistryActor extends Actor with ActorLogging {
   def receive: Receive = {
     case MoviesRegistryActor.GetMovieScore(name) =>
-      sender() ! MoviesService.getScore(name)// call movies service get score
+      sender() ! MoviesService.getScore(name) // call movies service get score
   }
 }
