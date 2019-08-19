@@ -1,5 +1,3 @@
 package movieProviders.responses
 
-class ImdbResponse {
-
-}
+case class ImdbResponse(imdbRating: Double)

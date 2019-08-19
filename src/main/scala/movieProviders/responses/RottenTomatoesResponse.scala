@@ -1,5 +1,3 @@
 package movieProviders.responses
 
-class RottenTomatoesResponse {
-
-}
+case class RottenTomatoesResponse(score: Double)

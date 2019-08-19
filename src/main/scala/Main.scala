@@ -1,15 +1,18 @@
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
 import api.routes.Routes
-import traits.AkkaImplicits
+import clients.HttpClient
+import factories.MovieProvidersFactory
+import traits.{AkkaImplicits, MovieProvidersFactoryTrait}
 
 import scala.concurrent.duration.Duration
-import scala.concurrent.{ Await, Future }
-import scala.util.{ Failure, Success }
+import scala.concurrent.{Await, Future}
+import scala.util.{Failure, Success}
 
 object Main extends App with AkkaImplicits {
 
   // TODO: Init dependencies
+  implicit val httpClient: HttpClient = new HttpClient((ex: Exception) => println(s"an error occurred: $ex"))
 
   lazy val routes: Route = Routes.setup()
 

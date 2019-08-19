@@ -8,7 +8,7 @@ import exceptions.HttpResponseException
 import traits.AkkaImplicits
 import scala.concurrent.Future
 
-class BaseHttpClient(onError: Exception => Unit) extends AkkaImplicits {
+class HttpClient(onError: Exception => Unit) extends AkkaImplicits {
 
   def get[A](url: String, headers: Map[String, String]): Future[A] = {
     try {
