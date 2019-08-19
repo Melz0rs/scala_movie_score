@@ -17,6 +17,7 @@ class HttpClient(onError: Exception => Unit) extends AkkaImplicits {
   private def execute[A](url: String, headers: Map[String, String], method: HttpMethod): Future[A] = {
     val httpRequest = prepareRequest(url, Map("a" -> "b"), method)
 
+    // TODO: What if SingleRequest fails?
     Http().singleRequest(httpRequest).flatMap(handleResponse[A])
   }
 
@@ -38,7 +39,8 @@ class HttpClient(onError: Exception => Unit) extends AkkaImplicits {
 
   private def handleResponse[A](response: HttpResponse): Future[A] = {
     if (response.status.isSuccess()) {
-      Unmarshal(response).to[A]
+      // TODO: Deserialize response body to A
+//      Unmarshal(response).to[A]
     } else {
       Future.failed(HttpResponseException(response))
     }

@@ -12,6 +12,7 @@ case class AvgMovieProvider(movieProvidersFactory: MovieProvidersFactory) extend
     val futureScores = Future.sequence(movieProviders.map(_.getScore(movieName)))
 
     for {
+      // TODO: What if any of the futureScores fail?
       scores <- futureScores
       sum = scores.map(_.value).sum
     } yield Score(sum / movieProviders.size)
