@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.http.scaladsl.server.Route
 import akka.util.Timeout
-import clients.HttpClient
+import httpClient.HttpClient
 
 import scala.concurrent.duration._
 

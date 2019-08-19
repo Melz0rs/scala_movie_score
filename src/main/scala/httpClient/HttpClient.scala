@@ -1,4 +1,4 @@
-package clients
+package httpClient
 
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.headers.RawHeader
@@ -11,13 +11,7 @@ import scala.concurrent.Future
 class HttpClient(onError: Exception => Unit) extends AkkaImplicits {
 
   def get[A](url: String, headers: Map[String, String]): Future[A] = {
-    try {
       execute[A](url, headers, HttpMethods.GET)
-    } catch {
-      case e: Exception =>
-        onError(e)
-        Future.failed(e)
-    }
   }
 
   private def execute[A](url: String, headers: Map[String, String], method: HttpMethod): Future[A] = {
@@ -46,7 +40,7 @@ class HttpClient(onError: Exception => Unit) extends AkkaImplicits {
     if (response.status.isSuccess()) {
       Unmarshal(response).to[A]
     } else {
-      throw HttpResponseException(response) // TODO: Maybe Future.failed?
+      Future.failed(HttpResponseException(response))
     }
   }
 }

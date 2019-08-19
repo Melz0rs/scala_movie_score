@@ -1,5 +1,5 @@
 package traits
 
-trait MovieProvidersFactoryTrait {
+trait MovieProvidersFactory {
   def apply(): Seq[MovieProvider]
 }

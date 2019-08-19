@@ -1,7 +1,7 @@
 package api.actors
 
-import akka.actor.{Actor, ActorLogging, Props}
-import clients.HttpClient
+import akka.actor.{ Actor, ActorLogging, Props }
+import httpClient.HttpClient
 import traits.MovieProvider
 
 object MoviesRegistryActor {

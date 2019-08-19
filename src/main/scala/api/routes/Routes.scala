@@ -1,8 +1,8 @@
 package api.routes
 
-import akka.http.scaladsl.server.{RequestContext, RouteResult}
+import akka.http.scaladsl.server.{ RequestContext, RouteResult }
 import akka.http.scaladsl.server.Directives._
-import clients.HttpClient
+import httpClient.HttpClient
 
 import scala.concurrent.Future
 
