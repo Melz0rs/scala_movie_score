@@ -8,7 +8,7 @@ import scala.concurrent.Future
 
 case class AvgMovieProvider(movieProvidersFactory: MovieProvidersFactory) extends MovieProvider {
 
-  override val cacheKeyPrefix: String = ""
+  override val cacheKeyPrefix: String = "avg_"
 
   override def internalGetScore(movieName: String)(implicit httpClient: HttpClient): Future[Score] = {
     val movieProviders = movieProvidersFactory()

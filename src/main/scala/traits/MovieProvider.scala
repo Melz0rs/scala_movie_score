@@ -4,22 +4,23 @@ import cache.Cache
 import classes.Score
 import httpClient.HttpClient
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
+import scala.util.Success
 
 trait MovieProvider {
 
   val cacheKeyPrefix: String
 
-  def getScore(movieName: String)(implicit httpClient: HttpClient): Future[Score] = {
+  def getScore(movieName: String)(implicit httpClient: HttpClient,
+                                  executionContext: ExecutionContext): Future[Score] = {
     val cacheKey = cacheKeyPrefix + movieName
 
     tryGetScoreFromCache(cacheKey) match {
-      case Some(value) => Future.successful(value)
+      case Some(score) =>
+        Future.successful(score)
       case _ =>
-        val score = internalGetScore(movieName)
-        Cache.set(cacheKey, score)
-
-        score
+        internalGetScore(movieName)
+          .andThen({ case Success(value) => Cache.set(cacheKey, value)})
     }
   }
 
