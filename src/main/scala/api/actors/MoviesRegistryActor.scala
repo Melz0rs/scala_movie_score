@@ -1,6 +1,6 @@
 package api.actors
 
-import akka.actor.{Actor, ActorLogging}
+import akka.actor.{ Actor, ActorLogging }
 import httpClient.HttpClient
 import traits.MovieProvider
 import akka.pattern.pipe

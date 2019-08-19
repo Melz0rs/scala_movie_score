@@ -14,14 +14,14 @@ case class ImdbMovieProvider(url: String, headers: Map[String, String], apiKey: 
   extends MovieProvider with HttpMovieProvider {
 
   val baseUrl = "http://www.omdbapi.com/"
+  override val cacheKeyPrefix = "imdb_"
 
-  override def getScore(movieName: String)(implicit httpClient: HttpClient): Future[Score] = {
+  override def internalGetScore(movieName: String)(implicit httpClient: HttpClient): Future[Score] = {
     val encodedMovieName = URLEncoder.encode(movieName, "UTF-8")
     val url = s"$baseUrl?apiKey=$apiKey&t=$encodedMovieName"
 
-    httpClient.get[ImdbResponse](url, headers).map(response =>
+    httpClient.get[ImdbResponse](url, headers).map { response =>
       Score(response.imdbRating)
-    )
+    }
   }
-
 }

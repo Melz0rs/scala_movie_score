@@ -12,10 +12,11 @@ case class RottenTomatoesMovieProvider(url: String, headers: Map[String, String]
 
   //  val baseUrl= "http://www.omdbapi.com/"
 
-  override def getScore(movieName: String)(implicit httpClient: HttpClient): Future[Score] = {
+  override val cacheKeyPrefix: String = "rt_"
+
+  override def internalGetScore(movieName: String)(implicit httpClient: HttpClient): Future[Score] = {
     val url = ""
 
     httpClient.get[RottenTomatoesResponse](url, headers).map(response => Score(response.score))
   }
-
 }
