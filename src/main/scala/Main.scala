@@ -2,9 +2,7 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
 import api.routes.Routes
 import httpClient.HttpClient
-import factories.AppMovieProvidersFactory
-import traits.{ AkkaImplicits, MovieProvidersFactory }
-
+import traits.AkkaImplicits
 import scala.concurrent.duration.Duration
 import scala.concurrent.{ Await, Future }
 import scala.util.{ Failure, Success }

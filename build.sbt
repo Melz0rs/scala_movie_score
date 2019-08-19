@@ -17,6 +17,9 @@ lazy val root = (project in file(".")).
       "net.liftweb" %% "lift-json" % "3.1.0",
       "org.json4s" %% "json4s-native" % "3.6.7",
       "org.json4s" %% "json4s-jackson" % "3.6.7",
+      "io.circe" %% "circe-core" % "0.11.1",
+      "io.circe" %% "circe-generic" % "0.11.1",
+      "io.circe" %% "circe-parser" % "0.11.1",
 
       "com.typesafe.akka" %% "akka-http-testkit"    % akkaHttpVersion % Test,
       "com.typesafe.akka" %% "akka-testkit"         % akkaVersion     % Test,
