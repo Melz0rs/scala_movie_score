@@ -1,7 +1,7 @@
 package movieProviders.responses
 
 import io.circe._, io.circe.generic.semiauto._
-import io.circe.{Decoder, Encoder}
+import io.circe.{ Decoder, Encoder }
 
 case class ImdbResponse(imdbRating: Double)
 

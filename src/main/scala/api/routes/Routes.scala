@@ -10,8 +10,7 @@ object Routes {
 
   def setup( /* conf? */ )(implicit httpClient: HttpClient): RequestContext => Future[RouteResult] = {
     concat(
-      MoviesRoutes.getRoutes
-    )
+      MoviesRoutes.getRoutes)
   }
 
 }

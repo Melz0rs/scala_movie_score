@@ -2,9 +2,9 @@ package httpClient
 
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.headers.RawHeader
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpMethod, HttpMethods, HttpRequest, HttpResponse}
+import akka.http.scaladsl.model.{ ContentTypes, HttpEntity, HttpMethod, HttpMethods, HttpRequest, HttpResponse }
 import akka.http.scaladsl.unmarshalling.Unmarshal
-import exceptions.{HttpResponseException, UnsupportedJsonFormatException}
+import exceptions.{ HttpResponseException, UnsupportedJsonFormatException }
 import io.circe.Decoder
 import traits.AkkaImplicits
 import io.circe._
@@ -14,12 +14,11 @@ import scala.concurrent.Future
 class HttpClient(onError: Exception => Unit) extends AkkaImplicits {
 
   def get[A](url: String, headers: Map[String, String])(implicit decoder: Decoder[A]): Future[A] = {
-      execute[A](url, headers, HttpMethods.GET)
+    execute[A](url, headers, HttpMethods.GET)
   }
 
-  private def execute[A](url: String, headers: Map[String, String], method: HttpMethod)
-                        (implicit decoder: Decoder[A]): Future[A] = {
-    val httpRequest = prepareRequest(url, Map("a" -> "b"), method)
+  private def execute[A](url: String, headers: Map[String, String], method: HttpMethod)(implicit decoder: Decoder[A]): Future[A] = {
+    val httpRequest = prepareRequest(url, headers, method)
 
     // TODO: What if SingleRequest fails?
     Http().singleRequest(httpRequest).flatMap(handleResponse[A])
@@ -30,7 +29,7 @@ class HttpClient(onError: Exception => Unit) extends AkkaImplicits {
     val httpRequest = HttpRequest(
       method = httpMethod,
       url,
-      entity = HttpEntity(ContentTypes.`text/plain(UTF-8)`, "data"))
+      entity = HttpEntity(ContentTypes.`application/json`, "data"))
 
     val httpHeaders = headers.map {
       case (key: String, value: String) => RawHeader(key, value)
@@ -43,7 +42,6 @@ class HttpClient(onError: Exception => Unit) extends AkkaImplicits {
 
   private def handleResponse[A](response: HttpResponse)(implicit decoder: Decoder[A]): Future[A] = {
     if (response.status.isSuccess()) {
-
       Unmarshal(response.entity).to[String].map { jsonString =>
         val json = parse(jsonString).getOrElse(Json.Null)
 
@@ -51,7 +49,6 @@ class HttpClient(onError: Exception => Unit) extends AkkaImplicits {
           case Right(value) => value
           case Left(_) => throw UnsupportedJsonFormatException(jsonString)
         }
-
       }
     } else {
       Future.failed(HttpResponseException(response))
