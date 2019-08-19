@@ -2,7 +2,9 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
 import api.routes.Routes
 import httpClient.HttpClient
-import traits.AkkaImplicits
+import impls.MoviesCache
+import traits.{ AkkaImplicits, Cache }
+
 import scala.concurrent.duration.Duration
 import scala.concurrent.{ Await, Future }
 import scala.util.{ Failure, Success }
@@ -11,6 +13,7 @@ object Main extends App with AkkaImplicits {
 
   // TODO: Init dependencies
   implicit val httpClient: HttpClient = new HttpClient((ex: Exception) => println(s"an error occurred: $ex"))
+  implicit val cache: Cache = new MoviesCache()
 
   lazy val routes: Route = Routes.setup()
 
