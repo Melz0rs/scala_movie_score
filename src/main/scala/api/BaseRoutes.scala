@@ -5,6 +5,7 @@ import akka.event.Logging
 import akka.http.scaladsl.server.Route
 import akka.util.Timeout
 import httpClient.HttpClient
+import traits.Cache
 
 import scala.concurrent.duration._
 
@@ -13,5 +14,5 @@ trait BaseRoutes {
   implicit def system: ActorSystem = ActorSystem("scala_movice_service_system_actor")
   lazy val log = Logging(system, classOf[BaseRoutes])
 
-  def getRoutes(implicit httpClient: HttpClient): Route
+  def getRoutes(): Route
 }

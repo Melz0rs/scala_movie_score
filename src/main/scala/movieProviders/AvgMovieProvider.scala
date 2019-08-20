@@ -2,15 +2,17 @@ package movieProviders
 
 import classes.Score
 import httpClient.HttpClient
-import traits.{ MovieProvider, MovieProvidersFactory }
+import movieProvidersPlugins.MovieProvider
+import traits.{ Cache, MovieProvidersFactory }
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-case class AvgMovieProvider(movieProvidersFactory: MovieProvidersFactory) extends MovieProvider {
+case class AvgMovieProvider(movieProvidersFactory: MovieProvidersFactory)(implicit
+  httpClient: HttpClient,
+  cache: Cache) extends MovieProvider {
 
-  override val cacheKeyPrefix: String = "avg_"
-
-  override def internalGetScore(movieName: String)(implicit httpClient: HttpClient): Future[Score] = {
+  override def getScore(movieName: String): Future[Score] = {
     val movieProviders = movieProvidersFactory()
     val futureScores = Future.sequence(movieProviders.map(_.getScore(movieName)))
 

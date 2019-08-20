@@ -14,16 +14,14 @@ import classes.Score
 import httpClient.HttpClient
 import factories.AppMovieProvidersFactory
 import movieProviders.AvgMovieProvider
-import traits.MovieProvidersFactory
+import traits.{ Cache, MovieProvidersFactory }
 
-import scala.concurrent.Future
+case class MoviesRoutes(implicit httpClient: HttpClient, cache: Cache) extends BaseRoutes with moviesJsonSupport {
 
-object MoviesRoutes extends BaseRoutes with moviesJsonSupport {
-
-  override def getRoutes(implicit httpClient: HttpClient): Route = {
+  override def getRoutes(): Route = {
 
     // TODO: Check environment variables \ conf file in order to know what factory to use
-    val movieProvidersFactory: MovieProvidersFactory = AppMovieProvidersFactory
+    val movieProvidersFactory: MovieProvidersFactory = AppMovieProvidersFactory()
 
     val moviesRegistryActor: ActorRef =
       system.actorOf(
