@@ -2,11 +2,11 @@ package com.movieProviders
 
 import java.net.URLEncoder
 
+import com.cache.Cache
 import com.classes.Score
 import com.httpClient.HttpClient
 import com.movieProviders.responses.ImdbResponse
-import com.movieProvidersPlugins.{ CachingMovieProvider, HttpMovieProvider }
-import com.traits.Cache
+import com.movieProvidersPlugins.{CachingMovieProvider, HttpMovieProvider}
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global

@@ -1,9 +1,10 @@
 package com.movieProviders
 
+import com.cache.Cache
 import com.classes.Score
 import com.httpClient.HttpClient
 import com.movieProvidersPlugins.MovieProvider
-import com.traits.{ Cache, MovieProvidersFactory }
+import com.traits.MovieProvidersFactory
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

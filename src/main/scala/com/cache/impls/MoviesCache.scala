@@ -1,6 +1,6 @@
-package com.impls
+package com.cache.impls
 
-import com.traits.Cache
+import com.cache.Cache
 
 class MoviesCache() extends Cache {
   val cache: scala.collection.mutable.Map[String, Any] = scala.collection.mutable.Map()

@@ -3,9 +3,10 @@ package com
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
 import com.api.routes.Routes
+import com.cache.Cache
+import com.cache.impls.MoviesCache
 import com.httpClient.HttpClient
-import com.impls.MoviesCache
-import com.traits.{AkkaImplicits, Cache}
+import com.traits.AkkaImplicits
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}

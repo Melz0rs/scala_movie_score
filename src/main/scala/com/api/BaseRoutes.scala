@@ -4,8 +4,8 @@ import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.http.scaladsl.server.Route
 import akka.util.Timeout
+import com.cache.Cache
 import com.httpClient.HttpClient
-import com.traits.Cache
 
 import scala.concurrent.duration._
 
