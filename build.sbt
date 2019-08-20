@@ -27,3 +27,8 @@ lazy val root = (project in file(".")).
       "org.scalatest"     %% "scalatest"            % "3.0.5"         % Test
     )
   )
+
+enablePlugins(JavaAppPackaging)
+enablePlugins(DockerPlugin)
+
+mainClass in Compile := Some("com.Main")
