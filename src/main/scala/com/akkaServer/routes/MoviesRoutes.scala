@@ -1,4 +1,4 @@
-package com.api.routes
+package com.akkaServer.routes
 
 import akka.actor.{ActorRef, Props}
 import akka.http.scaladsl.server.Directives._
@@ -7,9 +7,9 @@ import akka.http.scaladsl.server.directives.MethodDirectives.get
 import akka.http.scaladsl.server.directives.RouteDirectives.complete
 import akka.http.scaladsl.server.directives.PathDirectives.path
 import akka.pattern.ask
-import com.api.BaseRoutes
-import com.api.actors.MoviesRegistryActor
-import com.api.jsonSupport.moviesJsonSupport
+import com.akkaServer.BaseRoutes
+import com.akkaServer.actors.MoviesRegistryActor
+import com.akkaServer.jsonSupport.moviesJsonSupport
 import com.cache.Cache
 import com.classes.Score
 import com.httpClient.HttpClient

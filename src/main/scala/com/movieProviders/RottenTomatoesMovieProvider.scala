@@ -6,7 +6,7 @@ import com.cache.Cache
 import com.classes.Score
 import com.httpClient.HttpClient
 import com.movieProviders.responses.RottenTomatoesResponse
-import com.movieProvidersPlugins.{CachingMovieProvider, HttpMovieProvider}
+import com.movieProvidersPlugins.{ CachingMovieProvider, HttpMovieProvider }
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

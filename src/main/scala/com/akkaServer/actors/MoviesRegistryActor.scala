@@ -1,9 +1,9 @@
-package com.api.actors
+package com.akkaServer.actors
 
 import akka.actor.{ Actor, ActorLogging }
 import com.httpClient.HttpClient
 import akka.pattern.pipe
-import com.api.actors.MoviesRegistryActor.GetMovieScoreResponse
+import com.akkaServer.actors.MoviesRegistryActor.GetMovieScoreResponse
 import com.classes.Score
 import com.movieProvidersPlugins.MovieProvider
 

@@ -1,0 +1,9 @@
+version: '3'
+services:
+  api:
+    image: scala_movie_score:0.1.0-SNAPSHOT
+    ports:
+      - "8080:8080"
+  
+  redis:
+      image: "redis:alpine"

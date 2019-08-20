@@ -1,4 +1,4 @@
-package com.traits
+package com.akkaServer
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer

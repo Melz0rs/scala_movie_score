@@ -4,7 +4,7 @@ import com.cache.Cache
 import com.classes.Score
 import com.httpClient.HttpClient
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 import scala.util.Success
 
 abstract class CachingMovieProvider()(implicit

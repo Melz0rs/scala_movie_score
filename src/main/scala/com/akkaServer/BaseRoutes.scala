@@ -1,13 +1,9 @@
-package com.api
+package com.akkaServer
 
 import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.http.scaladsl.server.Route
 import akka.util.Timeout
-import com.cache.Cache
-import com.httpClient.HttpClient
-
-import scala.concurrent.duration._
 
 trait BaseRoutes {
   implicit lazy val timeout = Timeout(10.seconds) // Inject from config file

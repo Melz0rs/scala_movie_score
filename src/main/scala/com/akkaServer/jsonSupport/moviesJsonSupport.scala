@@ -1,4 +1,4 @@
-package com.api.jsonSupport
+package com.akkaServer.jsonSupport
 
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import com.classes.Score
