@@ -1,4 +1,4 @@
-package com
+package com.config
 
 object Config {
   var imdbUrl: String = ""
