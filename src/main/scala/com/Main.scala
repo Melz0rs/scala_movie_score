@@ -7,14 +7,18 @@ import com.akkaServer.routes.Routes
 import com.cache.Cache
 import com.cache.impls.{MoviesCache, RedisCache}
 import com.httpClient.HttpClient
-
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 import scala.util.{Failure, Success}
 
+
+/*
+  TODO-LIST: 1) Load config file and parse it into Config object
+             2) Implement RedisCache
+*/
+
 object Main extends App with AkkaImplicits {
 
-  // TODO: Init dependencies
   implicit val httpClient: HttpClient = new HttpClient((ex: Exception) => println(s"an error occurred: $ex"))
   implicit val cache: Cache = new MoviesCache() // RedisCache()
 
