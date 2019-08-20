@@ -1,6 +1,8 @@
 package com.config
 
-object Config {
+import common.config.Config
+
+object AppConfig extends Config {
   var imdbUrl: String = "http://www.omdbapi.com/"
   var rtUrl: String = ""
 

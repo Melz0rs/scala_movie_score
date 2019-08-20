@@ -1,4 +1,4 @@
-package com.akkaServer.routes
+package common.akkaServer.routes
 
 import akka.http.scaladsl.server.{ RequestContext, RouteResult }
 import akka.http.scaladsl.server.Directives._

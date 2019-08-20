@@ -1,4 +1,4 @@
-package com.akkaServer
+package common.akkaServer
 
 import akka.actor.ActorSystem
 import akka.event.Logging
