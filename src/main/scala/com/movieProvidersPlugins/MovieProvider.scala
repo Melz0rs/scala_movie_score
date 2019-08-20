@@ -9,6 +9,4 @@ trait MovieProvider {
 
   def getScore(movieName: String): Future[Score]
 
-  //  def internalGetScore(movieName: String)(implicit com.httpClient: HttpClient): Future[Score]
-
 }

@@ -3,7 +3,7 @@ package com.factories
 import com.cache.Cache
 import com.config.Config
 import com.httpClient.HttpClient
-import com.movieProviders.{ImdbMovieProvider, RottenTomatoesMovieProvider}
+import com.movieProviders.{ ImdbMovieProvider, RottenTomatoesMovieProvider }
 import com.movieProvidersPlugins.MovieProvider
 import com.traits.MovieProvidersFactory
 

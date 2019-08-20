@@ -1,10 +1,10 @@
 package com.config
 
 object Config {
-  var imdbUrl: String = ""
+  var imdbUrl: String = "http://www.omdbapi.com/"
   var rtUrl: String = ""
 
-  var imdbApiKey: String = ""
+  var imdbApiKey: String = "67d579a3"
   var rtApiKey: String = ""
 
   var imdbHeaders: Map[String, String] = Map()

@@ -2,10 +2,10 @@ package com.httpClient
 
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.headers.RawHeader
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpMethod, HttpMethods, HttpRequest, HttpResponse}
+import akka.http.scaladsl.model.{ ContentTypes, HttpEntity, HttpMethod, HttpMethods, HttpRequest, HttpResponse }
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import com.akkaServer.AkkaImplicits
-import com.exceptions.{HttpResponseException, UnsupportedJsonFormatException}
+import com.exceptions.{ HttpResponseException, UnsupportedJsonFormatException }
 import io.circe.Decoder
 import io.circe._
 import io.circe.parser._

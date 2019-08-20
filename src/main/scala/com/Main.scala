@@ -5,18 +5,18 @@ import akka.http.scaladsl.server.Route
 import com.akkaServer.AkkaImplicits
 import com.akkaServer.routes.Routes
 import com.cache.Cache
-import com.cache.impls.{MoviesCache, RedisCache}
-import com.config.{AppConfigService, ConfigService}
+import com.cache.impls.{ MoviesCache, RedisCache }
+import com.config.{ AppConfigService, ConfigService }
 import com.httpClient.HttpClient
 
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
-import scala.util.{Failure, Success}
-
+import scala.concurrent.{ Await, Future }
+import scala.util.{ Failure, Success }
 
 /*
   TODO-LIST: 1) Load config file and parse it into Config object
              2) Implement RedisCache
+             3) Replace docker compose with k8s
 */
 
 object Main extends App with AkkaImplicits {
@@ -25,7 +25,7 @@ object Main extends App with AkkaImplicits {
   implicit val cache: Cache = new MoviesCache() // RedisCache()
   val configService: ConfigService = new AppConfigService()
 
-  configService.loadConfig(/* get config file from env variables */)
+  //  configService.loadConfig(/* get config file from env variables */)
 
   lazy val routes: Route = Routes.setup()
 

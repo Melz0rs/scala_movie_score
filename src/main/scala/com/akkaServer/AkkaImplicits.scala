@@ -2,7 +2,6 @@ package com.akkaServer
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-
 import scala.concurrent.ExecutionContext
 
 trait AkkaImplicits {

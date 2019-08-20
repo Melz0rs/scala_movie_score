@@ -18,8 +18,8 @@ case class ImdbMovieProvider(url: String, headers: Map[String, String], apiKey: 
 
   override def internalGetScore(movieName: String): Future[Score] = {
     val encodedMovieName = URLEncoder.encode(movieName, "UTF-8")
-    val url = s"$url?apiKey=$apiKey&t=$encodedMovieName"
+    val encodedUrl = s"$url?apiKey=$apiKey&t=$encodedMovieName"
 
-    httpClient.get[ImdbResponse](url, headers).map(response => Score(response.imdbRating))
+    httpClient.get[ImdbResponse](encodedUrl, headers).map(response => Score(response.imdbRating))
   }
 }

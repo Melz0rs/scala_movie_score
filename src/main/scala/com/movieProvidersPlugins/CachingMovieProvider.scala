@@ -18,15 +18,17 @@ abstract class CachingMovieProvider()(implicit
 
   override def getScore(movieName: String): Future[Score] = {
     val cacheKey = cacheKeyPrefix + movieName
-    tryGetScoreFromCache(cacheKey) match {
+
+    tryGetScoreFromCache(cacheKey).flatMap {
       case Some(score) =>
         Future.successful(score)
-      case _ => internalGetScore(movieName)
-        .andThen({ case Success(value) => cache.set(cacheKey, value) })
+      case _ =>
+        internalGetScore(movieName)
+          .andThen({ case Success(value) => cache.set(cacheKey, value) })
     }
   }
 
-  private def tryGetScoreFromCache(movieName: String)(implicit cache: Cache): Option[Score] = {
+  private def tryGetScoreFromCache(movieName: String)(implicit cache: Cache): Future[Option[Score]] = {
     cache.get[Score](movieName)
   }
 
