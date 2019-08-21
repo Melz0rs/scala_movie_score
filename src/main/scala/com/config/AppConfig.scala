@@ -2,7 +2,7 @@ package com.config
 
 import common.config.Config
 
-object AppConfig extends Config {
+case class AppConfig() extends Config {
   var imdbUrl: String = "http://www.omdbapi.com/"
   var rtUrl: String = ""
 
