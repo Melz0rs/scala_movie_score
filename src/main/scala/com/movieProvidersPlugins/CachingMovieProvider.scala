@@ -7,7 +7,7 @@ import com.httpClient.HttpClient
 import scala.concurrent.{ ExecutionContext, Future }
 import scala.util.Success
 
-abstract class CachingMovieProvider() (implicit
+abstract class CachingMovieProvider()(implicit
   cache: Cache,
   httpClient: HttpClient,
   executionContext: ExecutionContext) extends MovieProvider {

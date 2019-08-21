@@ -1,31 +1,30 @@
 package com
 
-import akka.http.scaladsl.server.{RequestContext, RouteResult}
+import akka.http.scaladsl.server.{RequestContext, Route, RouteResult}
 import com.routes.Routes
 import com.cache.Cache
 import com.cache.impls.{MoviesCache, RedisCache}
-import common.app.AkkaApp
 import common.config.{CommonConfigService, ConfigService}
 import com.httpClient.HttpClient
-
-import scala.concurrent.Future
+import common.webServer.{AkkaWebServer, WebServer}
 
 /*
-  TODO-LIST: 1) Load config file and parse it into Config object
-             2) Implement RedisCache
-             3) Replace docker compose with k8s
+  TODO-LIST:
+            * Load config file and parse it into Config object
+            * Implement RedisCache
+            * Replace docker compose with k8s
 */
 
-object Main extends AkkaApp {
+object Main extends App {
+
+  implicit val cache: Cache = new MoviesCache() // RedisCache()
+  implicit val httpClient: HttpClient = new HttpClient((ex: Exception) => println(s"an error occurred: $ex"))
 
   val configService: ConfigService = CommonConfigService()
-  val configFilePath: String = "" // TODO: Get config file from system variables / run arguments
-  val config = configService.loadConfig(configFilePath)
+  val config = configService.loadConfig()
 
-  override def getRoutes: () => RequestContext => Future[RouteResult] = () => {
-    implicit val cache: Cache = new MoviesCache() // RedisCache()
-    implicit val httpClient: HttpClient = new HttpClient((ex: Exception) => println(s"an error occurred: $ex"))
+  val routes: Route = Routes.setup(config)
+  val webServer: WebServer = new AkkaWebServer(routes)
 
-    Routes.setup(config)
-  }
+  webServer.listen()
 }
