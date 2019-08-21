@@ -1,13 +1,15 @@
 package com
 
-import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.server.{RequestContext, Route, RouteResult}
 import common.akkaServer.routes.Routes
 import com.cache.Cache
-import com.cache.impls.{ MoviesCache, RedisCache }
+import com.cache.impls.{MoviesCache, RedisCache}
 import com.config.AppConfig
-import common.app.{ AkkaApp, ConfigApp }
-import common.config.{ CommonConfigService, Config, ConfigService }
+import common.app.{AkkaApp, ConfigApp}
+import common.config.{CommonConfigService, Config, ConfigService}
 import com.httpClient.HttpClient
+
+import scala.concurrent.Future
 
 /*
   TODO-LIST: 1) Load config file and parse it into Config object
@@ -17,12 +19,18 @@ import com.httpClient.HttpClient
 
 object Main extends ConfigApp with AkkaApp {
 
-  override val config: Config = AppConfig
-  override val configService: ConfigService = CommonConfigService()
-  override val configFilePath: String = ""
-  override lazy val routes: Route = Routes.setup()
+  override def getRoutes: () => RequestContext => Future[RouteResult] = () => {
+    implicit val cache: Cache = new MoviesCache() // RedisCache()
+    implicit val httpClient: HttpClient = new HttpClient((ex: Exception) => println(s"an error occurred: $ex"))
 
-  implicit val httpClient: HttpClient = new HttpClient((ex: Exception) => println(s"an error occurred: $ex"))
-  implicit val cache: Cache = new MoviesCache() // RedisCache()
+    Routes.setup()
+  }
 
+  override def getConfig: () => AppConfig.type = () => AppConfig
+  override def getConfigService: () => CommonConfigService = () => CommonConfigService()
+  override def getConfigFilePath: () => String = () => ""
+//
+//  private val createImplicits() => {
+//
+//  }
 }

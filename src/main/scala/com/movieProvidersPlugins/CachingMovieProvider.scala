@@ -7,7 +7,7 @@ import com.httpClient.HttpClient
 import scala.concurrent.{ ExecutionContext, Future }
 import scala.util.Success
 
-abstract class CachingMovieProvider()(implicit
+abstract class CachingMovieProvider() (implicit
   cache: Cache,
   httpClient: HttpClient,
   executionContext: ExecutionContext) extends MovieProvider {
@@ -28,7 +28,7 @@ abstract class CachingMovieProvider()(implicit
     }
   }
 
-  private def tryGetScoreFromCache(movieName: String)(implicit cache: Cache): Future[Option[Score]] = {
+  private def tryGetScoreFromCache(movieName: String): Future[Option[Score]] = {
     cache.get[Score](movieName)
   }
 
